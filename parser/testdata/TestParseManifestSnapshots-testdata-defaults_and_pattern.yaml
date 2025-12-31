@@ -1,0 +1,46 @@
+{
+  "Version": 1,
+  "Defaults": {
+    "Tags": [
+      "docs"
+    ],
+    "Link": "https://example.com/repo",
+    "Language": "go",
+    "Contributors": [
+      {
+        "Name": "Ada",
+        "LastName": "Lovelace",
+        "Email": "ada@example.com"
+      }
+    ]
+  },
+  "Ignore": [
+    "**/vendor/**"
+  ],
+  "Sources": [
+    {
+      "Type": "pattern",
+      "Spec": {
+        "Include": [
+          "src/**/*.go",
+          "cmd/**/*.go"
+        ],
+        "Exclude": [
+          "src/**/testdata/**"
+        ],
+        "Tags": [
+          "code"
+        ],
+        "Link": "https://example.com/code",
+        "Contributors": [
+          {
+            "Name": "Alan",
+            "LastName": "Turing",
+            "Email": "alan@example.com"
+          }
+        ]
+      }
+    }
+  ]
+}
+
