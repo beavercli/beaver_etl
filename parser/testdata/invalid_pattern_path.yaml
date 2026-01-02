@@ -1,7 +1,0 @@
-version: 1
-sources:
-  - type: pattern
-    include:
-      - ""
-    tags:
-      - docs

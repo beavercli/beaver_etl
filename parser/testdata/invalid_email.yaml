@@ -1,8 +1,0 @@
-version: 1
-sources:
-  - type: file
-    path: README.md
-    contributors:
-      - name: John
-        last_name: Doe
-        email: not-an-email
