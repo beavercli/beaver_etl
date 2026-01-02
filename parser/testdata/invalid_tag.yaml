@@ -1,0 +1,6 @@
+version: 1
+sources:
+  - type: file
+    path: README.md
+    tags:
+      - ""

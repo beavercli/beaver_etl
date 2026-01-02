@@ -22,11 +22,12 @@ func TestParseManifestSnapshots(t *testing.T) {
 		{name: "testdata/minimal_file.yaml"},
 		{name: "testdata/defaults_and_pattern.yaml"},
 		{name: "testdata/mixed_sources_optional.yaml"},
+		{name: "testdata/unmarshal_casing.yaml"},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			m, err := ParseBeaverConfig(tt.name)
+			m, err := ParseManifest(tt.name)
 			if err != nil {
 				t.Fatalf("cannot parse the config %s: %v", tt.name, err)
 			}
