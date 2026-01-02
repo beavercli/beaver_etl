@@ -3,9 +3,11 @@ module github.com/beavercli/beaver_etl
 go 1.25.4
 
 require (
+	github.com/bmatcuk/doublestar v1.3.4
 	github.com/bradleyjkemp/cupaloy v2.3.0+incompatible
 	github.com/go-playground/validator/v10 v10.30.1
 	go.yaml.in/yaml/v4 v4.0.0-rc.3
+	golang.org/x/text v0.32.0
 )
 
 require (
@@ -17,5 +19,4 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	golang.org/x/crypto v0.46.0 // indirect
 	golang.org/x/sys v0.39.0 // indirect
-	golang.org/x/text v0.32.0 // indirect
 )
