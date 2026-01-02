@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "Defaults": null,
+  "Ignore": [
+    "**/node_modules/**",
+    "**/.git/**"
+  ],
+  "Sources": [
+    {
+      "Type": "file",
+      "Spec": {
+        "Title": "Beaver CLI Overview",
+        "Path": "README.md",
+        "Tags": [
+          "docs",
+          "entry"
+        ],
+        "Link": "https://example.com/readme",
+        "Contributors": null
+      }
+    },
+    {
+      "Type": "file",
+      "Spec": {
+        "Title": null,
+        "Path": "LICENSE",
+        "Tags": [
+          "legal"
+        ],
+        "Link": null,
+        "Contributors": null
+      }
+    }
+  ]
+}
+
