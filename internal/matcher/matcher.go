@@ -76,7 +76,7 @@ func MatchFiles(root string, manifestPath string, m *manifest.Manifest) ([]Match
 		}
 	}
 
-	return nil, nil
+	return matches, nil
 }
 
 func toTags(tags []manifest.Tag) []Tag {
@@ -159,12 +159,14 @@ func patternToMatches(repo string, dir string, ps *manifest.PatternSource) ([]Ma
 		}
 
 		matches[i] = Match{
-			Path: Path(path),
-			// TODO:
+			Path:         Path(path),
+			Tags:         toTags(ps.Tags),
+			Contributors: toContributors(ps.Contributors),
+			Link:         (*Link)(ps.Link),
 		}
 	}
 
-	return nil, nil
+	return matches, nil
 }
 
 func matchAny(c string, patterns []string) (bool, error) {

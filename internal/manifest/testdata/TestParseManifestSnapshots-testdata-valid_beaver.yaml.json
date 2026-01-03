@@ -10,6 +10,7 @@
       "Type": "file",
       "Spec": {
         "Title": "Beaver CLI Overview",
+        "Language": null,
         "Path": "README.md",
         "Tags": [
           "docs",
@@ -23,6 +24,7 @@
       "Type": "file",
       "Spec": {
         "Title": null,
+        "Language": null,
         "Path": "LICENSE",
         "Tags": [
           "legal"

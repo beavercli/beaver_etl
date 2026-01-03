@@ -18,7 +18,7 @@ type Source struct {
 
 type FileSource struct {
 	Title        *Title        `yaml:"title" validate:"omitempty,title"`
-	Language     *Language     `yaml:"language" validate:"lang"`
+	Language     *Language     `yaml:"language" validate:"omitempty,language"`
 	Path         Path          `yaml:"path" validate:"path"`
 	Tags         []Tag         `yaml:"tags" validate:"dive,tag"`
 	Link         *Link         `yaml:"link" validate:"omitempty,link"`

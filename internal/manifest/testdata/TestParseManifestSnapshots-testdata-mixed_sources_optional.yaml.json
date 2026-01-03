@@ -7,6 +7,7 @@
       "Type": "file",
       "Spec": {
         "Title": "Guide",
+        "Language": null,
         "Path": "docs/guide.md",
         "Tags": [],
         "Link": null,

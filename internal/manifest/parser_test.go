@@ -1,6 +1,5 @@
 package manifest
 
-
 import (
 	"encoding/json"
 	"flag"
@@ -43,6 +42,7 @@ func TestParseManifestSnapshots(t *testing.T) {
 				cupaloy.ShouldUpdate(func() bool {
 					return *updateSnapshots || *updateSnapshotsAlt || os.Getenv("UPDATE_SNAPSHOTS") != ""
 				}),
+				cupaloy.SnapshotFileExtension(".json"),
 				cupaloy.FailOnUpdate(false),
 				cupaloy.SnapshotSubdirectory("testdata"),
 			)

@@ -1,0 +1,68 @@
+[
+  {
+    "Path": "docs/readme.md",
+    "Title": "Readme",
+    "Tags": [
+      "docs",
+      "intro"
+    ],
+    "Contributors": [
+      {
+        "Name": "Ada",
+        "LastName": "Lovelace",
+        "Email": "ada@example.com"
+      }
+    ],
+    "Link": "https://example.com/docs",
+    "Language": "markdown"
+  },
+  {
+    "Path": "notes/todo.txt",
+    "Title": null,
+    "Tags": [
+      "code"
+    ],
+    "Contributors": [
+      {
+        "Name": "Grace",
+        "LastName": "Hopper",
+        "Email": "grace@example.com"
+      }
+    ],
+    "Link": "https://example.com/code",
+    "Language": null
+  },
+  {
+    "Path": "src/main.go",
+    "Title": null,
+    "Tags": [
+      "code"
+    ],
+    "Contributors": [
+      {
+        "Name": "Grace",
+        "LastName": "Hopper",
+        "Email": "grace@example.com"
+      }
+    ],
+    "Link": "https://example.com/code",
+    "Language": null
+  },
+  {
+    "Path": "src/nested/util.go",
+    "Title": null,
+    "Tags": [
+      "code"
+    ],
+    "Contributors": [
+      {
+        "Name": "Grace",
+        "LastName": "Hopper",
+        "Email": "grace@example.com"
+      }
+    ],
+    "Link": "https://example.com/code",
+    "Language": null
+  }
+]
+
