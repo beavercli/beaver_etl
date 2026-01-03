@@ -1,5 +1,17 @@
 # Beaver ETL Context
 
+## FILE STRUCTURE
+  - cmd/etl – CLI entrypoint, flags/env config, wiring.
+  - internal/manifest – manifest loading + validation; keep your existing parser logic here or wrap it.
+  - internal/matcher – glob expansion, ignore/exclude handling, conflict resolution (last-write wins for link/language/contributors, tag union).
+  - internal/resolver – apply defaults + derive title/language/link/contributors for each matched file.
+  - internal/gitmeta – repo URL, commit SHA, blame contributors; keep shelling to git in one place.
+  - internal/content – file reading, binary detection, size limits.
+  - internal/api – Beaver API client (POST /api/v1/snippets), request structs, auth header handling.
+  - internal/pipeline – orchestrates: load manifest → match → resolve → read content → build request → send.
+  - internal/logging (optional) – structured logging + progress output.
+
+
 This repository ingests files described by a repository-level manifest (`beaver.yaml`) and creates
 snippets in the Beaver API (`../beaver_api`). The API accepts any snippet content (code, text, docs).
 The links below point to the main files needed to build that pipeline.
