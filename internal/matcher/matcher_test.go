@@ -97,3 +97,72 @@ sources:
 	)
 	snapshotter.SnapshotT(t, string(normalized))
 }
+
+func TestMatchFilesGlobalIgnore(t *testing.T) {
+	t.Parallel()
+
+	root := t.TempDir()
+	paths := []string{
+		filepath.Join(root, "notes", "todo.txt"),
+		filepath.Join(root, "notes", "skip.txt"),
+		filepath.Join(root, "src", "main.go"),
+		filepath.Join(root, "src", "ignore.go"),
+		filepath.Join(root, "src", "nested", "util.go"),
+		filepath.Join(root, "src", "nested", "ignore.go"),
+	}
+	for _, path := range paths {
+		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+			t.Fatalf("mkdir %s: %v", path, err)
+		}
+		if err := os.WriteFile(path, []byte("test\n"), 0o644); err != nil {
+			t.Fatalf("write %s: %v", path, err)
+		}
+	}
+
+	manifestPath := filepath.Join(root, "manifest.yaml")
+	manifestBody := `version: 1
+ignore:
+  - src/**/ignore.go
+  - notes/skip.txt
+sources:
+  - type: pattern
+    include:
+      - src/**/*.go
+      - notes/*.txt
+`
+	if err := os.WriteFile(manifestPath, []byte(manifestBody), 0o644); err != nil {
+		t.Fatalf("write manifest: %v", err)
+	}
+
+	m, err := manifest.ParseManifest(manifestPath)
+	if err != nil {
+		t.Fatalf("parse manifest: %v", err)
+	}
+
+	matches, err := MatchFiles(root, manifestPath, m)
+	if err != nil {
+		t.Fatalf("match files: %v", err)
+	}
+
+	got := make([]string, 0, len(matches))
+	for _, match := range matches {
+		got = append(got, string(match.Path))
+	}
+	sort.Strings(got)
+
+	want := []string{
+		"notes/todo.txt",
+		"src/main.go",
+		"src/nested/util.go",
+	}
+	sort.Strings(want)
+
+	if len(got) != len(want) {
+		t.Fatalf("unexpected match count: got %d want %d (%v)", len(got), len(want), got)
+	}
+	for i := range want {
+		if got[i] != want[i] {
+			t.Fatalf("unexpected match at %d: got %s want %s", i, got[i], want[i])
+		}
+	}
+}

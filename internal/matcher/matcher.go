@@ -65,10 +65,16 @@ func MatchFiles(root string, manifestPath string, m *manifest.Manifest) ([]Match
 			break
 		case manifest.Pattern:
 			ps := source.Spec.(*manifest.PatternSource)
-			ms, err := patternToMatches(absRepo, manifestDir, ps)
+			paths, err := matchPaths(manifestDir, ps, m.Ignore)
 			if err != nil {
 				return nil, err
 			}
+
+			ms, err := patternToMatches(paths, absRepo, ps)
+			if err != nil {
+				return nil, err
+			}
+
 			matches = append(matches, ms...)
 			break
 		default:
@@ -118,7 +124,7 @@ func fileToMatch(repo string, dir string, fs *manifest.FileSource) (Match, error
 	}, nil
 }
 
-func patternToMatches(repo string, dir string, ps *manifest.PatternSource) ([]Match, error) {
+func matchPaths(dir string, ps *manifest.PatternSource, globIgnore []manifest.PatternPath) ([]string, error) {
 	// collect all candidates in Include
 	candidates := make([]string, 0, len(ps.Include))
 	for _, p := range ps.Include {
@@ -130,9 +136,10 @@ func patternToMatches(repo string, dir string, ps *manifest.PatternSource) ([]Ma
 		}
 		candidates = append(candidates, matches...)
 	}
+	exclude := append(ps.Exclude, globIgnore...)
 
-	excludePatterns := make([]string, len(ps.Exclude))
-	for i, p := range ps.Exclude {
+	excludePatterns := make([]string, len(exclude))
+	for i, p := range exclude {
 		excludePatterns[i] = joinPath(dir, filepath.FromSlash(string(p)))
 	}
 
@@ -150,6 +157,10 @@ func patternToMatches(repo string, dir string, ps *manifest.PatternSource) ([]Ma
 
 		paths = append(paths, c)
 	}
+	return paths, nil
+}
+
+func patternToMatches(paths []string, repo string, pattern *manifest.PatternSource) ([]Match, error) {
 	matches := make([]Match, len(paths))
 	for i, p := range paths {
 		path, err := relToPath(repo, p)
@@ -160,9 +171,9 @@ func patternToMatches(repo string, dir string, ps *manifest.PatternSource) ([]Ma
 
 		matches[i] = Match{
 			Path:         Path(path),
-			Tags:         toTags(ps.Tags),
-			Contributors: toContributors(ps.Contributors),
-			Link:         (*Link)(ps.Link),
+			Tags:         toTags(pattern.Tags),
+			Contributors: toContributors(pattern.Contributors),
+			Link:         (*Link)(pattern.Link),
 		}
 	}
 
